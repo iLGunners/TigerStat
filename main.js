@@ -2115,3 +2115,37 @@ for(odiData of t20DataList) {
 }
 
 console.log(processedT20DataList);
+
+// Start - Chart
+
+var ctx = document.getElementById('odiChart');
+var odiGraphLabel = processedOdiDataList.map(function(e) {
+  return e.title;
+});
+var odiGraphData = processedOdiDataList.map(function(e) {
+  return e.winPercentage;
+});
+
+var odiChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+      labels: odiGraphLabel,
+      datasets: [{
+          label: 'ODI Win %',
+          data: odiGraphData,
+          backgroundColor: [
+              'rgba(0,128,0, 0.2)',
+          ],
+          borderWidth: 1
+      }]
+  },
+  options: {
+      scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero: true
+              }
+          }]
+      }
+  }
+});
