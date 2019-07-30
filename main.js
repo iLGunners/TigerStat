@@ -2032,7 +2032,7 @@ var t20DataList = [
 
 var processedOdiDataList = [];
 var tempDateGroupTitle = "";
-var sameMonthCount = 0;
+var sameMonthPlayedCount = 0;
 var sameMonthWinCount = 0;
 
 for(odiData of odiDataList) {
@@ -2043,7 +2043,7 @@ for(odiData of odiDataList) {
 
   if (tempDateGroupTitle == slicedDate) {
 
-    sameMonthCount = sameMonthCount + 1;
+    sameMonthPlayedCount = sameMonthPlayedCount + 1;
     if (odiData["Winner"] === "Bangladesh") {
       sameMonthWinCount = sameMonthWinCount + 1;
     }
@@ -2053,14 +2053,16 @@ for(odiData of odiDataList) {
     if (tempDateGroupTitle !== "") {
       processedOdiDataList.push({
         "title": tempDateGroupTitle,
-        "played": sameMonthCount,
+        "played": sameMonthPlayedCount,
         "won": sameMonthWinCount,
-        "lost": sameMonthCount - sameMonthWinCount
+        "winPercentage": ((sameMonthWinCount * 100) / sameMonthPlayedCount).toFixed(0),
+        "lost": sameMonthPlayedCount - sameMonthWinCount,
+        "lossPercentage": (((sameMonthPlayedCount - sameMonthWinCount) * 100) / sameMonthPlayedCount).toFixed(0)
       })
     }
 
     tempDateGroupTitle = slicedDate;
-    sameMonthCount = 1;
+    sameMonthPlayedCount = 1;
     sameMonthWinCount = 0;
     if (odiData["Winner"] === "Bangladesh") {
       sameMonthWinCount = sameMonthWinCount + 1;
@@ -2074,7 +2076,7 @@ console.log(processedOdiDataList);
 
 var processedT20DataList = [];
 tempDateGroupTitle = "";
-sameMonthCount = 0;
+sameMonthPlayedCount = 0;
 sameMonthWinCount = 0;
 
 for(odiData of t20DataList) {
@@ -2085,7 +2087,7 @@ for(odiData of t20DataList) {
 
   if (tempDateGroupTitle == slicedDate) {
 
-    sameMonthCount = sameMonthCount + 1;
+    sameMonthPlayedCount = sameMonthPlayedCount + 1;
     if (odiData["Winner"] === "Bangladesh") {
       sameMonthWinCount = sameMonthWinCount + 1;
     }
@@ -2095,14 +2097,14 @@ for(odiData of t20DataList) {
     if (tempDateGroupTitle !== "") {
       processedT20DataList.push({
         "title": tempDateGroupTitle,
-        "played": sameMonthCount,
+        "played": sameMonthPlayedCount,
         "won": sameMonthWinCount,
-        "lost": sameMonthCount - sameMonthWinCount
+        "lost": sameMonthPlayedCount - sameMonthWinCount
       })
     }
 
     tempDateGroupTitle = slicedDate;
-    sameMonthCount = 1;
+    sameMonthPlayedCount = 1;
     sameMonthWinCount = 0;
     if (odiData["Winner"] === "Bangladesh") {
       sameMonthWinCount = sameMonthWinCount + 1;
